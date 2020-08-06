@@ -1,2 +1,9 @@
+<<<<<<< HEAD
 #!/bin/bash
 pwd | ls -l
+=======
+int main()
+{
+printf("Hola");
+}
+>>>>>>> sofia
