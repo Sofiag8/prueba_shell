@@ -1,3 +1,10 @@
+<style>
+h1{
+font-family: Impact, Charcoal, sans-serif;
+font-size: 90px;
+color: rgba(255, 99, 71, 1);
+}
+</style>
 <h1 class="gap">Project 0x16. C -  Creating out own Simple Shell</h1>
 
 <h2>Background Context</h2>
