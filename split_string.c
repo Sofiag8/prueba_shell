@@ -9,7 +9,6 @@ void main (void)
 	size_t size = 0;
 
 	getline(&str, &size, stdin);
-	printf("%zu", strlen(str));
 	/* get the first token */
 	token = strtok(str, s);
 	/* walk through other tokens */
