@@ -14,7 +14,9 @@ void main (void)
 	/* walk through other tokens */
 	while (token != NULL)
 	{
-		printf( "%s\n", token);
+		printf( "%s", token);
 		token = strtok(NULL, s);
+		if (token != NULL)
+			printf("\n");
 	}
 }
