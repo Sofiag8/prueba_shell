@@ -4,7 +4,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+/**
+ * looks like shell but is not complete yet
+ * split_command not working yet
+ * just receiving the full path and executable files
+ * error messages not set yet
+ * exit not set yet
+ * cases not set yet and not conditions :)
+ */
 char *read_command(void)
 {
 	char *string = NULL;
@@ -14,6 +21,7 @@ char *read_command(void)
 	getline(&string, &size, stdin);
 	return (string);
 }
+/**
 char *split_command(char *args)
 {
 	const char space[1] = " ";
@@ -25,7 +33,7 @@ char *split_command(char *args)
 		token = strtok(NULL, space);
 	return (token);
 }
-
+*/
 int forkwaitexec(char *argv)
 {
 	pid_t shell_pid;
