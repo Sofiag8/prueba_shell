@@ -1,0 +1,49 @@
+#include "holberton.h"
+/**
+ * ctrl_D - ends our shell wwhen passed ctrl D by the user
+ * @string: the string received
+ * @bufsize: size of string in bytes
+ * Return: 0 success 1 if failed
+ */
+int ctrl_D(char *string, size_t bufsize)
+{
+	int i;
+
+	if (bufsize == EOF && isatty(STDIN_FILENO) == 1)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		free(string);
+		exit (0);
+	}
+	if (bufsize == EOF && isatty(STDIN_FILENO) == 0)
+	{
+		free(string);
+		exit (0);
+	}
+	i = 0;
+	while (string[i] != '\n')
+	{
+		if (string[i] != ' ' && string[i] != '\t')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+/**
+ * main - prints the environment
+ *
+ * Return: Always 0.
+ *
+char printenv(char **env)
+{
+        unsigned int i;
+
+        i = 0;
+        while (env[i] != NULL)
+        {
+                printf("%s\n", env[i]);
+                i++;
+        }
+        return (0);
+}
