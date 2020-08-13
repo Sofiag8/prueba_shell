@@ -4,25 +4,36 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <fcntl.h>
 /**
- * looks like shell but is not complete yet
- * split_command not working yet
- * just receiving the full path and executable files
- * error messages not set yet
- * exit not set yet
- * cases not set yet and not conditions :)
+ * read_command - read a line from stdin
+ * Description: first we print the command prompt
+ * then we read the command from standar input
+ * Return: a pointer contaning the string passed to the CLI
  */
 char *read_command(void)
 {
 	char *string = NULL;
-	size_t size = 1024;
+	/* have getline allocate a buffer for us */
+	size_t bufsize = 0;
 
-	printf("#cisfun$ ");
-	getline(&string, &size, stdin);
+	write(STDOUT_FILENO, "shell$ ", 7);
+	if (getline(&string, &bufsize, stdin) == -1)
+	{
+		if (feof(stdin))
+		{
+			write(STDOUT_FILENO, "\n", 1);
+			exit(EXIT_SUCCESS);
+		}
+	       else
+		 {
+			 perror("Error:");
+			 exit(EXIT_FAILURE);
+		 }
+	}
 	return (string);
 }
-/**
-char *split_command(char *args)
+/* char *split_command(char *args)
 {
 	const char space[1] = " ";
 	char *token;
@@ -32,8 +43,8 @@ char *split_command(char *args)
 	while (token != NULL)
 		token = strtok(NULL, space);
 	return (token);
-}
-*/
+	}*/
+/* int main(int argc, char *argv[], char *envp[]) */
 int forkwaitexec(char *argv)
 {
 	pid_t shell_pid;
@@ -50,7 +61,7 @@ int forkwaitexec(char *argv)
 	if (shell_pid == 0)
 	{
 		shell_pid = execve(args[0], args, NULL);
-		printf("Execute failure\n");
+		write(STDOUT_FILENO, "./shell: command not found\n", 29);
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -64,17 +75,37 @@ int shell_loop(char **argv)
 
 	do{
 		args = read_command();
-		/**
-		 *args = split_command(token);
-		 */
 		status = forkwaitexec(args);
 	}
 	while (!status)
 		;
 	return (status);
 }
-int main(int argc, char *argv[])
+#include <stdio.h>
+/**
+ * main - prints the environment
+ *
+ * Return: Always 0.
+ */
+char printenv(int ac, char **av, char **env)
+{
+        unsigned int i;
+
+        i = 0;
+        while (env[i] != NULL)
+        {
+                printf("%s\n", env[i]);
+                i++;
+        }
+        return (0);
+}
+/**
+ *
+ *
+ */
+int main(int argc, char *argv[], char *env[])
 {
 	shell_loop(argv);
+	printenv(argc, argv, env);
 	return (EXIT_SUCCESS);
 }
