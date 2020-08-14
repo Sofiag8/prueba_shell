@@ -1,39 +1,101 @@
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include "holberton.h"
 /**
- * looks like shell but is not complete yet
- * split_command not working yet
- * just receiving the full path and executable files
- * error messages not set yet
- * exit not set yet
- * cases not set yet and not conditions :)
+ * read_command - read a line from stdin
+ * Description: first we print the command prompt
+ * then we read the command from standar input
+ * Return: a pointer contaning the string passed to the CLI
  */
 char *read_command(void)
 {
 	char *string = NULL;
-	size_t size = 1024;
+	/* have getline allocate a buffer for us */
+ 	size_t bufsize = 0;
 
-	printf("#cisfun$ ");
-	getline(&string, &size, stdin);
+	write(STDOUT_FILENO, "shell$ ", 7);
+	if (getline(&string, &bufsize, stdin) == -1)
+	{
+		if (feof(stdin))
+		{
+			write(STDOUT_FILENO, "\n", 1);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			perror("Error:");
+			exit(EXIT_FAILURE);
+		}
+	}
 	return (string);
 }
 /**
-char *split_command(char *args)
+ * ctrl_D - ends our shell wwhen passed ctrl D by the user
+ * @string: the string received
+ * @bufsize: size of string in bytes
+ * Return: 0 success 1 if failed
+ */
+int ctrl_D(char *string, size_t bufsize)
 {
-	const char space[1] = " ";
-	char *token;
-	char *str;
+	int i;
 
-	token = strtok(str,space);
-	while (token != NULL)
-		token = strtok(NULL, space);
-	return (token);
+	if (bufsize == EOF && isatty(STDIN_FILENO) == 1)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		free(string);
+		exit (0);
+	}
+	if (bufsize == EOF && isatty(STDIN_FILENO) == 0)
+	{
+		free(string);
+		exit (0);
+	}
+	i = 0;
+	while (string[i] != '\n')
+	{
+		if (string[i] != ' ' && string[i] != '\t')
+			return (0);
+		i++;
+	}
+	return (1);
 }
-*/
+/**
+ * split_command - tokenize the received line
+ * @string: pointer to the received string in getline
+ * Return: the string tokenized
+ */
+char **split_command(char *string)
+{
+	int bufsize = LSH_TOK_BUFSIZE;
+	int position = 0;
+	char **tokens;
+	char *token;
+
+	tokens = malloc(bufsize * sizeof(char *));
+	if (!tokens)
+	{
+		write(STDERR_FILENO, ": allocation error\n", 20);
+		exit(EXIT_FAILURE);
+	}
+	token = strtok(string, LSH_TOK_DELIM);
+	while (token != NULL)
+	{
+		tokens[position] = token;
+		position++;
+		if (position >= bufsize)
+		{
+			bufsize += LSH_TOK_BUFSIZE;
+			tokens = realloc(tokens, bufsize * sizeof(char*));
+			if (!tokens)
+			{
+				write(STDERR_FILENO, ": allocation error\n", 20);
+				exit(EXIT_FAILURE);
+			}
+		}
+		token = strtok(NULL, LSH_TOK_DELIM);
+	}
+	tokens[position] = NULL;
+	return (tokens);
+}
+/* int main(int argc, char *argv[], char *envp[]) */
 int forkwaitexec(char *argv)
 {
 	pid_t shell_pid;
@@ -50,7 +112,7 @@ int forkwaitexec(char *argv)
 	if (shell_pid == 0)
 	{
 		shell_pid = execve(args[0], args, NULL);
-		printf("Execute failure\n");
+		write(STDERR_FILENO, ": command not found\n", 21);
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -62,19 +124,39 @@ int shell_loop(char **argv)
 	char *args;
 	int status;
 
-	do{
+	do
+	{
 		args = read_command();
-		/**
-		 *args = split_command(token);
-		 */
 		status = forkwaitexec(args);
 	}
 	while (!status)
 		;
 	return (status);
 }
-int main(int argc, char *argv[])
+/**
+ * main - prints the environment
+ *
+ * Return: Always 0.
+ *
+char printenv(char **env)
+{
+        unsigned int i;
+
+        i = 0;
+        while (env[i] != NULL)
+        {
+                printf("%s\n", env[i]);
+                i++;
+        }
+        return (0);
+}
+/**
+ *
+ *
+ */
+int main(int argc, char *argv[], char *env[])
 {
 	shell_loop(argv);
+	/*printenv(env);*/
 	return (EXIT_SUCCESS);
 }

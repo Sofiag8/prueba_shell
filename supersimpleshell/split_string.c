@@ -9,12 +9,11 @@ void main (void)
 	size_t size = 0;
 
 	getline(&str, &size, stdin);
-	/* get the first token */
 	token = strtok(str, s);
-	/* walk through other tokens */
+
 	while (token != NULL)
 	{
-		printf( "%s", token);
+		printf("%s", token);
 		token = strtok(NULL, s);
 		if (token != NULL)
 			printf("\n");
