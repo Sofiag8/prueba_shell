@@ -8,8 +8,8 @@
  */
 int main(int argc, char **argv, char **env)
 {
-        (void)argc;
+	(void)argc;
 
-        shell_loop(argv, env);
-        return (EXIT_SUCCESS);
+	shell_loop(argv, env);
+	return (EXIT_SUCCESS);
 }

@@ -6,15 +6,15 @@
  */
 int printenv(char **env)
 {
-        unsigned int i;
-        int j, print;
+	unsigned int i;
+	int j, print;
 
-        for (i = 0; env[i] != NULL; i++)
-        {
-                print_string(env[i]);
-                write(STDOUT_FILENO, "\n", 1);
-        }
-        return (EXIT_SUCCESS);
+	for (i = 0; env[i] != NULL; i++)
+	{
+		print_string(env[i]);
+		write(STDOUT_FILENO, "\n", 1);
+	}
+	return (EXIT_SUCCESS);
 }
 /**
  *  print_string - auxiliar function to print each linea of env
@@ -23,11 +23,11 @@ int printenv(char **env)
  */
 void print_string(char *env)
 {
-        int i, print;
+	int i, print;
 
-        for (i = 0; env[i] != '\0'; i++)
-                ;
-        print = write(STDOUT_FILENO, env, i);
-        if (print == EOF)
-                return;
+	for (i = 0; env[i] != '\0'; i++)
+		;
+	print = write(STDOUT_FILENO, env, i);
+	if (print == EOF)
+		return;
 }

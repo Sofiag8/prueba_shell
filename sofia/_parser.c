@@ -1,5 +1,9 @@
 #include "holberton.h"
-
+/**
+ * _parser - function to allocate memory and tokenize
+ * @string: the argument passed  saved on getline
+ * Return: double pointer
+ */
 char **_parser(char *string)
 {
 	char **args;
