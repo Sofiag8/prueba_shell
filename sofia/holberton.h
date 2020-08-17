@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
+#include <signal.h>
 
 /* string manipulations functions */
 int _strlen(char *s);
@@ -34,4 +35,6 @@ char **_parser(char *string);
 void built_int(char *string, char **argv, char **env);
 int printenv(char **env);
 
+/* function signal */
+void sighandler(int sig);
 #endif

@@ -17,6 +17,7 @@ char *read_command(char **env)
 	{
 		if (isatty(STDIN_FILENO) == 1)
 			write(STDOUT_FILENO, "shell$ ", 7);
+		signal(SIGINT, sighandler);
 		read = getline(&string, &bufsize, stdin);
 		if (read == EOF)
 		{
@@ -32,4 +33,9 @@ char *read_command(char **env)
                 status = _path(args[0], args, env);
         }
         return (0);
+}
+
+char sighandler(char **env)
+{
+	return ()
 }
