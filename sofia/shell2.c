@@ -8,7 +8,6 @@
 char *read_command(char **env)
 {
 	char *string = NULL;
-	/* have getline allocate a buffer for us */
  	size_t bufsize = 0;
 	char **args = NULL;
 	ssize_t read;
@@ -19,6 +18,12 @@ char *read_command(char **env)
 		if (isatty(STDIN_FILENO) == 1)
 			write(STDOUT_FILENO, "shell$ ", 7);
 		read = getline(&string, &bufsize, stdin);
+		if (read == EOF)
+                {
+                        free(string);
+                        write(STDOUT_FILENO, "\n", 1);
+                        exit(EXIT_SUCCESS);
+                }
 		if (string[0] == '/')
 			return (string);
 
