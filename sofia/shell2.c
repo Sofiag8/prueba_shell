@@ -12,13 +12,16 @@ char *read_command(char **env)
  	size_t bufsize = 0;
 	char **args = NULL;
 	ssize_t read;
-	int status;
+	int status, i;
 
 	while (1 == 1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
 			write(STDOUT_FILENO, "shell$ ", 7);
 		read = getline(&string, &bufsize, stdin);
+		if (string[0] == '/')
+			return (string);
+
 
 
 		/**if (feof(stdin))
@@ -33,8 +36,8 @@ char *read_command(char **env)
 				}*/
 		rm_new_line(string);
 		args = _parser(string);
+		built_in(string, args, env);
 		status = _path(args[0], args, env);
-	return (string);
 	}
 	return (0);
 }
@@ -154,8 +157,7 @@ int shell_loop(char **argv, char **env)
 	do
 	{
 		args = read_command(env);
-
-		//status = forkwaitexec(args);
+		status = forkwaitexec(args);
 	}
 	while (!status)
 		;
@@ -165,18 +167,28 @@ int shell_loop(char **argv, char **env)
  * main - prints the environment
  *
  * Return: Always 0.
- *
-char printenv(char **env)
+ */
+int printenv(char **env)
 {
         unsigned int i;
+	int j, print;
 
-        i = 0;
-        while (env[i] != NULL)
+        for (i = 0; env[i] != NULL; i++)
         {
-                printf("%s\n", env[i]);
-                i++;
+		print_string(env[i]);
+		write(STDOUT_FILENO, "\n", 1);
         }
-        return (0);
+        return (EXIT_SUCCESS);
+}
+void print_string(char *string)
+{
+	int i, print;
+
+	for (i = 0; string[i] != '\0'; i++)
+		;
+	print = write(STDOUT_FILENO, string, i);
+	if (print == EOF)
+		return;
 }
 /**
  *
