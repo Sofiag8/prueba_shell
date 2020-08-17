@@ -24,6 +24,10 @@ int forkwaitexec(char *argv)
 		exit(EXIT_FAILURE);
 	}
 	else
+	{
 		shell_pid = wait(&status);
+		if (WIFEXITED(status) && status != 0)
+			exit(WEXITSTATUS(status));
+	}
 	return (0);
 }

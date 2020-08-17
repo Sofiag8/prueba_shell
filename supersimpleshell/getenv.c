@@ -21,6 +21,6 @@ char *_getenv(const char *name)
 
 int main(void)
 {
-	printf("PATH : %s\n", getenv("PATH"));
+	printf("PATH : %s\n", _getenv("PATH"));
 	return (0);
 }
