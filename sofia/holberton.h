@@ -13,7 +13,7 @@
 #include <string.h>
 #include <fcntl.h>
 
-/*function string */
+/* string manipulations functions */
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 char *_strncat(char *dest, char *src);
@@ -33,6 +33,5 @@ char *print_path(char *der, char *args);
 char **_parser(char *string);
 void built_int(char *string, char **argv, char **env);
 int printenv(char **env);
-void print_string(char *string);
 
 #endif
