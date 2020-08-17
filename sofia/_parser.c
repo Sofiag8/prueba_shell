@@ -9,9 +9,7 @@ char **_parser(char *string)
 	char *linecopy = NULL;
 	int arg_num = 0, i = 0;
 
-	printf("parser: %s\n", string);
 	linecopy = _strdup(string);
-	printf("lynecopy: %s\n", linecopy);
 	parsed = strtok(linecopy, " \t");
 
 	while (parsed != NULL)
