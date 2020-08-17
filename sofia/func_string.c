@@ -92,10 +92,8 @@ char *_strdup(char *str)
 	ptr = malloc(sizeof(char) * j + 1);
 	if (ptr == NULL)
 		return (NULL);
-	printf("j: %d", j);
 	for (i = 0; i < j; i++)
 		ptr[i] = str[i];
 	ptr[j] = '\0';
-	printf("memoria: %d\n", ptr[i]);
 	return (ptr);
 }
