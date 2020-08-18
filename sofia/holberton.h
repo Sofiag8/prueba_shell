@@ -21,6 +21,7 @@ char *_strncat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 char *_strdup(char *str);
 void print_string(char *string);
+char *_memcpy(char *dest, char *Src, unsigned int n);
 
 /* shell basic process */
 int main(int argc, char *argv[], char *env[]);
@@ -38,5 +39,9 @@ void simple_print_shell(char *string);
 
 /* function signal */
 void sighandler(int sig);
+
+/* function builint cd */
+int func_cd(char **string, char **env);
+char *_getenv(char *string, char **env);
 
 #endif
