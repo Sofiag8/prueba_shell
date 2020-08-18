@@ -1,7 +1,10 @@
 #include "holberton.h"
-
 /**
- *
+ * _path - search for PATH in the env
+ * @args: arguments saved on getline
+ * @argv: arguments passed
+ * @env: environment variable
+ * Return: 0 success
  */
 int _path(char *args, char **argv, char **env)
 {
@@ -24,11 +27,11 @@ int _path(char *args, char **argv, char **env)
 				{
 					if (fork() == 0)
 						execve(copy, argv, NULL);
-				else
-					wait(NULL);
-				free(copy);
-				free(envcp);
-				return (0);
+					else
+						wait(NULL);
+					free(copy);
+					free(envcp);
+					return (0);
 				}
 				der = strtok(NULL, ": \t");
 				free(copy);
@@ -40,7 +43,10 @@ int _path(char *args, char **argv, char **env)
 }
 
 /**
- *
+ * print_path - makes a copy of path and print it
+ * @der: saved tokens
+ * @args: the arguments
+ * Return: a char variable with the copy of path
  */
 char *print_path(char *der, char *args)
 {

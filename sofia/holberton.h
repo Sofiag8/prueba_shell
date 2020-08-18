@@ -34,7 +34,9 @@ char *print_path(char *der, char *args);
 char **_parser(char *string);
 void built_int(char *string, char **argv, char **env);
 int printenv(char **env);
+void simple_print_shell(char *string);
 
 /* function signal */
 void sighandler(int sig);
+
 #endif

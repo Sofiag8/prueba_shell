@@ -1,4 +1,14 @@
-#include "holberton.h"
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+
+extern char **environ;
+
+int _strlen(char *s);
 /**
  * printenv - prints the environment
  * @env: double pointer with the env
@@ -35,4 +45,9 @@ int _strlen(char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
+}
+int main(char **env)
+{
+	printenv(env);
+	return (0);
 }
