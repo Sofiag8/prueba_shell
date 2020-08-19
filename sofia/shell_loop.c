@@ -7,8 +7,9 @@
  */
 int shell_loop(char **argv, char **env)
 {
-	char *args;
-	int status;
+	char *args = NULL;
+	int status = 0;
+	(void)**argv;
 
 	do {
 		args = read_command(env);
@@ -16,5 +17,6 @@ int shell_loop(char **argv, char **env)
 	}
 	while (!status)
 		;
+	free(args);
 	return (status);
 }

@@ -12,7 +12,7 @@ char *read_command(char **env)
 	size_t bufsize = 0;
 	char **args = NULL;
 	ssize_t read;
-	int status, i;
+	int status = 0;
 
 	if (signal(SIGINT, sighandler) == SIG_ERR)
 		perror("Error: \n");
@@ -29,11 +29,15 @@ char *read_command(char **env)
 			exit(EXIT_SUCCESS);
 		}
 		if (string[0] == '/')
+		{
 			return (string);
+		}
 		rm_new_line(string);
 		args = _parser(string);
 		built_in(string, args, env);
 		status = _path(args[0], args, env);
+		fflush(stdin);
 	}
+	free(string);
 	return (0);
 }

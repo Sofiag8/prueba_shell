@@ -7,27 +7,29 @@
 int forkwaitexec(char *argv)
 {
 	pid_t shell_pid;
-	int status;
+	int status, exec = 0;
 	char *args[] = {argv, NULL};
 
-	argv = strtok(argv, "\n");
+	argv = strtok(argv, " \n\t\r");
 	shell_pid = fork();
 	if (shell_pid == -1)
 	{
-		perror("Error:");
+		perror("Error");
 		return (1);
 	}
 	if (shell_pid == 0)
 	{
 		shell_pid = execve(args[0], args, NULL);
-		write(STDERR_FILENO, ": command not found\n", 21);
-		exit(EXIT_FAILURE);
+		write(STDERR_FILENO, argv, _strlen(argv));
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, args[0], _strlen(args[0]));
+		write(STDERR_FILENO, ": not such file or directory\n", 30);
 	}
 	else
 	{
 		shell_pid = wait(&status);
 		if (WIFEXITED(status) && status != 0)
-			exit(WEXITSTATUS(status));
+			exec = WEXITSTATUS(status);
 	}
-	return (0);
+	return (exec);
 }
