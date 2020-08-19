@@ -1,10 +1,8 @@
 #include "holberton.h"
-
 /**
  * func_cd - function which is used to change the current working directory.
  * @string: line of arguments
  * @env: variable environment
- *
  * Return: 0
  */
 int func_cd(char **string, char **env)
@@ -13,7 +11,7 @@ int func_cd(char **string, char **env)
 
 	home = _getenv("HOME", env);
 	if (string[1])
-       	{
+	{
 		if (string[1][0] == '~' && string[1][1] != '\0')
 			obj = home;
 		else if (string[1][0] == '-' && string[1][1])
@@ -33,12 +31,10 @@ int func_cd(char **string, char **env)
 	setenv("PWD", getcwd(pwd, sizeof(pwd)), 1);
 	return (0);
 }
-
 /**
  * _getenv - get the address of directory
  * @string: line of arguments
  * @env: variable environment
- *
  * Return: NULL
  */
 char *_getenv(char *string, char **env)

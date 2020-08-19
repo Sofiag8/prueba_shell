@@ -8,6 +8,7 @@
 int shell_loop(char **argv, char **env)
 {
 	char *args = NULL;
+
 	(void)**argv;
 
 	do {

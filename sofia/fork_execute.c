@@ -1,7 +1,9 @@
 #include "holberton.h"
 /**
  * forkwaitexec - executes the commands passed
- * @argv: commands passed in CL
+ * @args: commands passed in CL
+ * @status: receiving the status true or false
+ * @count: variable that counts the commands passed
  * Return: 0 success otherwise 1
  */
 void forkwaitexec(int status, char **args, int *count)
@@ -12,7 +14,9 @@ void forkwaitexec(int status, char **args, int *count)
 			if (fork() == 0)
 				execve(args[0], args, NULL);
 			else
+			{
 				wait(NULL);
+			}
 		else if (access(args[0], F_OK) != 0)
 		{
 			print_string("sh: ");
@@ -20,7 +24,8 @@ void forkwaitexec(int status, char **args, int *count)
 			print_string(": ");
 			perror(args[0]);
 		}
-		else if (access(args[0], F_OK) == 0 && access(args[0], X_OK) != 0)
+		else if (access(args[0], F_OK) == 0 &&
+			access(args[0], X_OK) != 0)
 		{
 			print_string("sh: ");
 			print_count(count);
@@ -30,9 +35,10 @@ void forkwaitexec(int status, char **args, int *count)
 	}
 	free(args);
 }
-
 /**
- *
+ * print_count - count and prints the number of commands passed
+ * @count: int with the counter of commands passed
+ * Return: void
  */
 void print_count(int *count)
 {
@@ -42,14 +48,14 @@ void print_count(int *count)
 	n = *count;
 	max = n;
 	a = max;
-	do{
+	do {
 		a /= 10;
 		++len;
-	}while (a != 0);
+	} while (a != 0);
 	cnt += len;
 	for (i = 0; i < len - 1; i++)
 		base *= 10;
-	_putchar('0' + (max/base));
+	_putchar('0' + (max / base));
 	if (len > 1)
 	{
 		for (i = 0; i < len - 2; i++)
@@ -61,7 +67,11 @@ void print_count(int *count)
 		_putchar('0' + (max % 10));
 	}
 }
-
+/**
+ * _putchar - our own putchar function
+ * @c: the char passed to the function
+ * Return: 0 success otherwise 1
+ */
 int _putchar(char c)
 {
 	return (write(1, &c, 1));

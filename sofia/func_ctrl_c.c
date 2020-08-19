@@ -1,11 +1,13 @@
 #include "holberton.h"
-
 /**
- *
+ * func_ctrl_d - allows use of ctrl d as way of shutting down shell
+ * @string: the argument passed
+ * @read: size of the saved string
+ * Return: 0 success, otherwise 1
  */
-int func_ctrl_c(char *string, ssize_t read)
+int func_ctrl_d(char *string, ssize_t read)
 {
-	int i;
+	int i = 0;
 
 	if (read == EOF && isatty(STDIN_FILENO) == 0)
 	{
