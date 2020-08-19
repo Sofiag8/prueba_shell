@@ -12,7 +12,8 @@ char *read_command(char **env)
 	size_t bufsize = 0;
 	char **args = NULL;
 	ssize_t read;
-	int status, i;
+	int i;
+	static int count;
 
 	if (signal(SIGINT, sighandler) == SIG_ERR)
 		perror("Error: \n");
@@ -22,18 +23,22 @@ char *read_command(char **env)
 			simple_print_shell("shell$ ");
 
 		read = getline(&string, &bufsize, stdin);
+		++count;
 		if (read == EOF)
 		{
 			free(string);
 			write(STDOUT_FILENO, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
-		if (string[0] == '/')
-			return (string);
+
 		rm_new_line(string);
 		args = _parser(string);
 		built_in(string, args, env);
-		status = _path(args[0], args, env);
+		 _path(args[0], args, env);
+		 printf("count: %d", count);
+		forkwaitexec(args, &count);
+		fflush(stdin);
 	}
+	free(string);
 	return (0);
 }

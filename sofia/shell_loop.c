@@ -8,13 +8,11 @@
 int shell_loop(char **argv, char **env)
 {
 	char *args;
-	int status;
 
 	do {
 		args = read_command(env);
-		status = forkwaitexec(args);
 	}
-	while (!status)
+	while (1 == 1)
 		;
-	return (status);
+	return (0);
 }

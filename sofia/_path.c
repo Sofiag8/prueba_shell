@@ -39,7 +39,7 @@ int _path(char *args, char **argv, char **env)
 		}
 		free(envcp);
 	}
-	return (2);
+	return (1);
 }
 
 /**
