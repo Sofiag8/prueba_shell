@@ -33,7 +33,7 @@ void forkwaitexec(char **args, int *count)
  */
 void print_count(int *count)
 {
-	int cnt, len, i, n;
+	int i, n, cnt = 0, len = 0;
 	unsigned int base = 1, max, a;
 
 	n = *count;

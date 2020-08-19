@@ -33,7 +33,7 @@ void rm_new_line(char *string);
 int _path(char *args, char **argv, char **env);
 char *print_path(char *der, char *args);
 char **_parser(char *string);
-void built_int(char *string, char **argv, char **env);
+void built_in(char *string, char **argv, char **env);
 int printenv(char **env);
 void simple_print_shell(char *string);
 void print_count(int *count);

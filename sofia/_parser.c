@@ -14,12 +14,12 @@ char **_parser(char *string)
 	int arg_num = 0, i = 0;
 
 	linecopy = _strdup(string);
-	parsed = strtok(linecopy, " \t\n\r");
+	parsed = strtok(linecopy, " \n\t\r");
 
 	while (parsed != NULL)
 	{
 		arg_num++;
-		parsed = strtok(NULL, " \t\n\r");
+		parsed = strtok(NULL, " \n\t\r");
 	}
 
 	args = malloc(sizeof(char *) * (arg_num + 1));
@@ -27,12 +27,12 @@ char **_parser(char *string)
 	if (args == NULL)
 		return (NULL);
 
-	parsed2 = strtok(string, " \t\n\r");
+	parsed2 = strtok(string, " \n\t\r");
 
 	while (parsed2 != NULL)
 	{
 		args[i] = parsed2;
-		parsed2 = strtok(NULL, " \t\n\r");
+		parsed2 = strtok(NULL, " \n\t\r");
 		i++;
 	}
 

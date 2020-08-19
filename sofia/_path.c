@@ -15,11 +15,11 @@ int _path(char *args, char **argv, char **env)
 	for (i = 0; env[i] != NULL; i++)
 	{
 		envcp = _strdup(env[i]);
-		izq = strtok(envcp, "= \t");
-		tmp = strtok(NULL, "= \t");
+		izq = strtok(envcp, "=\t");
+		tmp = strtok(NULL, "=\t");
 		if (_strcmp(izq, "PATH") == 0)
 		{
-			der = strtok(tmp, ": \t");
+			der = strtok(tmp, ":\t");
 			while (der)
 			{
 				copy = print_path(der, args);
@@ -33,7 +33,7 @@ int _path(char *args, char **argv, char **env)
 					free(envcp);
 					return (0);
 				}
-				der = strtok(NULL, ": \t");
+				der = strtok(NULL, ":\t");
 				free(copy);
 			}
 		}

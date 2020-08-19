@@ -12,7 +12,7 @@ char *read_command(char **env)
 	size_t bufsize = 0;
 	char **args = NULL;
 	ssize_t read;
-	int i;
+
 	static int count;
 
 	if (signal(SIGINT, sighandler) == SIG_ERR)
@@ -34,7 +34,6 @@ char *read_command(char **env)
 		args = _parser(string);
 		built_in(string, args, env);
 		 _path(args[0], args, env);
-		 printf("count %d", count);
 		forkwaitexec(args, &count);
 		fflush(stdin);
 	}
