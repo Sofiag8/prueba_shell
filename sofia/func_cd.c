@@ -43,7 +43,7 @@ int func_cd(char **string, char **env)
  */
 char *_getenv(char *string, char **env)
 {
-	int i, j, count, x, len;
+	int i, j, count, len;
 	char *tmp;
 
 	if (string == NULL)

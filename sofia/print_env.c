@@ -7,7 +7,6 @@
 int printenv(char **env)
 {
 	unsigned int i;
-	int j, print;
 
 	for (i = 0; env[i] != NULL; i++)
 	{
