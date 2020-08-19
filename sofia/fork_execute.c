@@ -4,26 +4,29 @@
  * @argv: commands passed in CL
  * Return: 0 success otherwise 1
  */
-void forkwaitexec(char **args, int *count)
+void forkwaitexec(int status, char **args, int *count)
 {
-	if (access(args[0], X_OK) == 0)
-		if (fork() == 0)
-			execve(args[0], args, NULL);
-		else
-			wait(NULL);
-	else if (access(args[0], F_OK) != 0)
+	if (status == 1)
 	{
-		print_string("sh: ");
-		print_count(count);
-		print_string(": ");
-		perror(args[0]);
-	}
-	else if (access(args[0], F_OK) == 0 && access(args[0], X_OK) != 0)
-	{
-		print_string("sh: ");
-		print_count(count);
-		print_string(": ");
-		perror(args[0]);
+		if (access(args[0], X_OK) == 0)
+			if (fork() == 0)
+				execve(args[0], args, NULL);
+			else
+				wait(NULL);
+		else if (access(args[0], F_OK) != 0)
+		{
+			print_string("sh: ");
+			print_count(count);
+			print_string(": ");
+			perror(args[0]);
+		}
+		else if (access(args[0], F_OK) == 0 && access(args[0], X_OK) != 0)
+		{
+			print_string("sh: ");
+			print_count(count);
+			print_string(": ");
+			perror(args[0]);
+		}
 	}
 	free(args);
 }

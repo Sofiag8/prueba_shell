@@ -28,7 +28,7 @@ int main(int argc, char *argv[], char *env[]);
 int shell_loop(char **argv, char **env);
 char *read_command(char **env);
 char **split_command(char *string);
-void forkwaitexec(char **argv, int *count);
+void forkwaitexec(int status, char **argv, int *count);
 void rm_new_line(char *string);
 int _path(char *args, char **argv, char **env);
 char *print_path(char *der, char *args);

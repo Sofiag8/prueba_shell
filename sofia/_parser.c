@@ -7,7 +7,6 @@
 char **_parser(char *string)
 {
 	char **args;
-
 	char *parsed = NULL;
 	char *parsed2 = NULL;
 	char *linecopy = NULL;
