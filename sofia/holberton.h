@@ -37,6 +37,7 @@ void built_int(char *string, char **argv, char **env);
 int printenv(char **env);
 void simple_print_shell(char *string);
 void print_count(int *count);
+int _putchar(char c);
 
 /* function signal */
 void sighandler(int sig);

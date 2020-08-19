@@ -12,14 +12,8 @@ char *read_command(char **env)
 	size_t bufsize = 0;
 	char **args = NULL;
 	ssize_t read;
-<<<<<<< HEAD
 	int i;
 	static int count;
-||||||| merged common ancestors
-	int status, i;
-=======
-	int status = 0;
->>>>>>> 5c7504ce06207ba24254043b2d5129046c9cca31
 
 	if (signal(SIGINT, sighandler) == SIG_ERR)
 		perror("Error: \n");
@@ -36,31 +30,13 @@ char *read_command(char **env)
 			write(STDOUT_FILENO, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
-<<<<<<< HEAD
-
-||||||| merged common ancestors
-		if (string[0] == '/')
-			return (string);
-=======
-		if (string[0] == '/')
-		{
-			return (string);
-		}
->>>>>>> 5c7504ce06207ba24254043b2d5129046c9cca31
 		rm_new_line(string);
 		args = _parser(string);
 		built_in(string, args, env);
-<<<<<<< HEAD
 		 _path(args[0], args, env);
-		 printf("count: %d", count);
+		 printf("count %d", count);
 		forkwaitexec(args, &count);
 		fflush(stdin);
-||||||| merged common ancestors
-		status = _path(args[0], args, env);
-=======
-		status = _path(args[0], args, env);
-		fflush(stdin);
->>>>>>> 5c7504ce06207ba24254043b2d5129046c9cca31
 	}
 	free(string);
 	return (0);
